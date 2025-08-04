@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit3, Trash2, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function TodoListing({ todos }) {
   const router = useRouter();
@@ -32,6 +33,13 @@ export default function TodoListing({ todos }) {
       },
       body: JSON.stringify({ title: newTitle.trim() }),
     });
+    toast("Todo updated!", {
+      style: {
+        borderRadius: "5px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
 
     closeModal();
     router.refresh();
@@ -41,6 +49,14 @@ export default function TodoListing({ todos }) {
     await fetch(`/api/todos/${id}`, {
       method: "DELETE",
     });
+    toast("Todo deleted!", {
+      style: {
+        borderRadius: "5px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
+
     router.refresh();
   };
 

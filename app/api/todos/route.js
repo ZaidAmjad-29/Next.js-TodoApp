@@ -38,12 +38,11 @@ export async function POST(req) {
     const user = await getOrCreateUser(kindeUser);
 
     const { title } = await req.json();
-   const newTodo = await Todo.create({
-  title,
-  userId: user._id,
-  kindeUserId: kindeUser.id, // ✅ required by your schema
-});
-
+    const newTodo = await Todo.create({
+      title,
+      userId: user._id,
+      kindeUserId: kindeUser.id,
+    });
 
     return NextResponse.json(newTodo, { status: 201 });
   } catch (err) {
